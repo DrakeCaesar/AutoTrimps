@@ -1,6 +1,6 @@
 var ATversion = 'Zek v5.1.0',
     atscript = document.getElementById('AutoTrimps-script'),
-    basepath = 'https://Zorn192.github.io/AutoTrimps/', //Link to your own Github here if you forked!
+    basepath = 'http://localhost/',
     modulepath = 'modules/';
 null !== atscript && (basepath = atscript.src.replace(/AutoTrimps2\.js$/, ''));
 
@@ -76,13 +76,13 @@ function printChangelog() {
 }
 
 var runInterval = 100;
-var startupDelay = 4000;
+var startupDelay = 1500; //4000
 
 setTimeout(delayStart, startupDelay);
 
 function delayStart() {
     initializeAutoTrimps();
-    printChangelog();
+    //printChangelog();
     setTimeout(delayStartAgain, startupDelay);
 }
 
