@@ -110,26 +110,45 @@
 
 			// Cell data
 			var cell = cells[i];
+			$cell.title = cell.name;
+			if ($cell.children.length == 0) {
+				//$cell.innerHTML = `<span class="glyphicon" style="visibility: hidden;" > <span class="glyphicon" style="visibility: hidden;" > <span class="glyphicon"></span>`;
+				//$cell.innerHTML = `<span class="glyphicon glyphicon-comment" > </span> <span class="glyphicon glyphicon-comment" ></span> <span class="glyphicon glyphicon-comment"></span> `;
+				$cell.innerHTML = `<span class="glyphicon " > </span> <span class="glyphicon " ></span> <span class="glyphicon "></span> `;
+			} else if ($cell.children.length == 1) {
+				//$cell.innerHTML = `<span class="glyphicon " style="visibility: hidden;" > </span>  ${$cell.innerHTML} <span class="glyphicon"> </span>`;
+				$cell.innerHTML = `<span class="glyphicon " > </span>  ${$cell.innerHTML} <span class="glyphicon " > </span>`;
+				
+			}
 
 
 			if(cell.name.toLowerCase().indexOf('skele') > -1)					// Skeletimp cell
 			{
-				if(cell.special.length === 0)
-					$cell.innerHTML = "<span class=\"glyphicon glyphicon-italic\"></span> ";
-
-				$cell.title = cell.name;
+				const index = $cell.children[0].classList == "glyphicon " ? 1 : 0;
+				
+				if (cell.special.length === 0)
+				{
+					$cell.children[index].classList.add("glyphicon-italic");
+					$cell.children[index].style.textShadow = '0px 0px 10px #ffffff';
+				}
+				
 				//$cell.style.color = M["fightinfo"].colors.bone; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
-				$cell.style.textShadow = '0px 0px 10px #ffffff';
+				
 			}
 
 			else if(M["fightinfo"].exotics.indexOf(cell.name) > -1)				// Exotic cell
 			{
-				if(cell.special.length === 0)
-					$cell.innerHTML = "<span class=\"glyphicon glyphicon-sunglasses\"></span> ";
+				if (cell.special.length === 0) {
+					const index = $cell.children[0].classList == "glyphicon " ? 1 : 0;
+					$cell.children[index].classList.add("glyphicon-sunglasses");
+					$cell.children[index].style.textShadow = '0px 0px 10px #fb753f';
+				}
+					
 
-				$cell.title = cell.name;
+
+				// $cell.title = cell.name;
 				//$cell.style.color = M["fightinfo"].colors.exotic; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
-				$cell.style.textShadow = '0px 0px 10px #fb753f';
+				// $cell.style.textShadow = '0px 0px 10px #fb753f';
 			}
 
 			else if(M["fightinfo"].powerful.indexOf(cell.name) > -1)			// Powerful imp
@@ -137,19 +156,23 @@
 				if(cell.special.length === 0)
 					$cell.innerHTML = "<span class=\"glyphicon glyphicon-hazard\"></span> ";
 
-				$cell.title = cell.name;
 				//$cell.style.color = M["fightinfo"].colors.powerful; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
 				$cell.style.textShadow = '0px 0px 10px #8c0000';
 			}
       
-      			else if(M["fightinfo"].fast.indexOf(cell.name) > -1)				// Fast imp
+      else if(M["fightinfo"].fast.indexOf(cell.name) > -1)				// Fast imp
 			{
 				//if(cell.special.length === 0)
-					$cell.innerHTML = "<span class=\"glyphicon glyphicon-forward\"></span> ";
-
-				$cell.title = cell.name;
-				//$cell.style.color = M["fightinfo"].colors.fast; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
-				$cell.style.textShadow = '0px 0px 10px #ffffff';
+				if ($cell.innerHTML.indexOf("glyphicon glyphicon-forward") == -1) {
+					$cell.children[2].classList.add("glyphicon-forward");
+					$cell.children[2].style.textShadow = '0px 0px 10px #ffffff';
+				}
+			}
+			else {
+			}
+			if (cell.name.toLowerCase().indexOf('presimpt') > -1) {
+				$cell.children[0].classList.add("glyphicon-gift");
+				$cell.children[0].style.textShadow = '0px 0px 10px red';
 			}
 
 			//This shit doesn't work and I don't know why (What is the celltitle??? is it the name of the nature? Imps are labelled Toxic/Gusty/Frozen but that didin't work either)
@@ -158,7 +181,6 @@
 			  if(cell.special.length === 0)
 			    $cell.innerHTML = "<span class=\"glyphicon glyphicon-flask\"></span> ";
 
-			  $cell.title = cell.name;
 			  //$cell.style.color = M["fightinfo"].colors.exotic; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
 			  $cell.style.textShadow = '0px 0px 10px #ffffff';
 			}
@@ -167,7 +189,6 @@
 			  if(cell.special.length === 0)
 			    $cell.innerHTML = "<span class=\"icomoon icon-air\"></span> ";
 
-			  $cell.title = cell.name;
 			  //$cell.style.color = M["fightinfo"].colors.exotic; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
 			  $cell.style.textShadow = '0px 0px 10px #ffffff';
 			}
@@ -176,9 +197,26 @@
 			  if(cell.special.length === 0)
 			    $cell.innerHTML = "<span class=\"glyphicon glyphicon-certificate\"></span> ";
 
-			  $cell.title = cell.name;
 			  //$cell.style.color = M["fightinfo"].colors.exotic; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
 			  $cell.style.textShadow = '0px 0px 10px #ffffff';
+			}
+			
+			$cell.style.justifyContent = "space-between";
+			
+			for (let i = 0; i < $cell.children.length; i++) {
+				if ($cell.children[i].classList == "glyphicon ") {
+					$cell.children[i].style.visibility = "hidden";
+				}
+			}
+			if ($cell.children[0].classList.length == 1 && $cell.children[2].classList.length == 2) {	
+				const classToAdd = $cell.children[2].classList[1].toString();
+				console.log(classToAdd);
+				$cell.children[0].classList.add(classToAdd);
+			}
+			if ($cell.children[2].classList.length == 1 && $cell.children[0].classList.length == 2) {
+				const classToAdd = $cell.children[0].classList[1].toString();
+				console.log(classToAdd);
+				$cell.children[2].classList.add(classToAdd);
 			}
 		}
 	}
