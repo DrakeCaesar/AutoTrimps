@@ -75,7 +75,7 @@ function printChangelog() {
     tooltip('confirm', null, 'update', body + footer, action, title, acceptBtnText, null, hideCancel);
 }
 
-var runInterval = 100;
+var runInterval = 1000/60; //100
 var startupDelay = 1500; //4000
 
 setTimeout(delayStart, startupDelay);
@@ -91,7 +91,7 @@ function delayStartAgain() {
     game.global.autotrimps = true;
     MODULESdefault = JSON.parse(JSON.stringify(MODULES));
     setInterval(mainLoop, runInterval);
-    setInterval(guiLoop, runInterval * 10);
+    setInterval(guiLoop, runInterval);
 }
 
 var ATrunning = true;
